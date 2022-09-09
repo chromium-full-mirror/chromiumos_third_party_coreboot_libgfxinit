@@ -34,11 +34,13 @@ private package HW.GFX.GMA.Power_And_Clocks is
    with
       Post => Config_Helpers.Stable_FB (Configs'Old, Configs);
    pragma Warnings (On, """Configs"" is not modified, could be IN");
-   procedure Enable_CDClk is null;
+   procedure Enable_CDClk;
 
    procedure Power_Set_To (Configs : Pipe_Configs);
    procedure Power_Up (Old_Configs, New_Configs : Pipe_Configs);
    procedure Power_Down (Old_Configs, Tmp_Configs, New_Configs : Pipe_Configs);
    pragma Warnings (On, "subprogram ""*"" has no effect");
+
+   procedure Get_RefClk (Refclk : out Frequency_Type);
 
 end HW.GFX.GMA.Power_And_Clocks;
