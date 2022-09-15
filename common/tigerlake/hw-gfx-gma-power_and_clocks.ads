@@ -41,6 +41,8 @@ private package HW.GFX.GMA.Power_And_Clocks is
    procedure Power_Down (Old_Configs, Tmp_Configs, New_Configs : Pipe_Configs);
    pragma Warnings (On, "subprogram ""*"" has no effect");
 
+   procedure Power_Up_Aux;
+
    procedure Get_RefClk (Refclk : out Frequency_Type);
 
 end HW.GFX.GMA.Power_And_Clocks;

@@ -107,10 +107,14 @@ is
       IIR,
       HOTPLUG_CTL,
       TC_HOTPLUG_CTL,
-      GEN11_DE_HPD_ISR,
+      DISPLAY_ERR_FATAL_MASK,
       DBUF_CTL_S2,
+      DBUF_CTL_S3,
+      MBUS_CTL,
+      GEN11_DE_HPD_ISR,
+      DBUF_CTL_S1,
       ARB_CTL,
-      DBUF_CTL,
+      DBUF_CTL_S0,
       MBUS_ABOX_CTL,
       MBUS_ABOX1_CTL,
       MBUS_ABOX2_CTL,
@@ -148,6 +152,7 @@ is
       MGPLL4_ENABLE,
       WRPLL_CTL_1,
       MGPLL6_ENABLE,
+      PORTTC_PLL_ENABLE_4,
       WRPLL_CTL_2,
       BXT_DE_PLL_ENABLE,
       BXT_PORT_PLL_ENABLE_A,
@@ -170,7 +175,8 @@ is
       GEN8_CHICKEN_DCPR_1,
       GEN11_CHICKEN_DCPR_2,
       GEN9_CLKGATE_DIS_0,
-      GEN9_CLKGATE_DIS_3,
+      GEN9_CHICKEN_DPCR_3,
+      GEN9_CLKGATE_DIS_5,
       BLC_PWM_CPU_CTL2,
       BLC_PWM_CPU_CTL,
       DFSM,
@@ -553,6 +559,7 @@ is
       SRD_STATUS_EDP,
       PIPE_SCANLINE_A,
       PIPEACONF,
+      PIPEA_ARB_CTL,
       PIPEAMISC,
       PIPEA_CHICKEN,
       PIPE_MBUS_DBOX_CTL_A,
@@ -598,6 +605,7 @@ is
       SPACNTR,
       PIPE_SCANLINE_B,
       PIPEBCONF,
+      PIPEB_ARB_CTL,
       PIPEBMISC,
       PIPEB_CHICKEN,
       PIPE_MBUS_DBOX_CTL_B,
@@ -641,6 +649,7 @@ is
       GMCH_VGACNTRL,
       PIPE_SCANLINE_C,
       PIPECCONF,
+      PIPEC_ARB_CTL,
       PIPECMISC,
       PIPEC_CHICKEN,
       PIPE_MBUS_DBOX_CTL_C,
@@ -850,7 +859,10 @@ is
       PORT_TX_DW4_LN1_C,
       PORT_TX_DW4_LN2_C,
       PORT_TX_DW4_LN3_C,
-
+      TCSS_DDI_STATUS_1,
+      TCSS_DDI_STATUS_2,
+      TCSS_DDI_STATUS_3,
+      TCSS_DDI_STATUS_4,
       BXT_PORT_CL1CM_DW0_A,
       PORT_CL_DW5_A,
       BXT_PORT_CL1CM_DW9_A,
@@ -914,6 +926,7 @@ is
       DPLL_0_SSC,
       DPLL_1_SSC,
       DPLL_4_SSC,
+      DKL_PCS_DW5_1,
       DKL_DP_MODE_1,
       DKL_CLKTOP2_HSCC_1,
       DKL_CLKTOP2_CCC1_1,
@@ -928,6 +941,7 @@ is
       DKL_TX_DPCNTL2_1,
       DKL_CMN_UC_DW_27_1,
       DKL_TX_PMD_LANE_SUS_1,
+      DKL_PCS_DW5_2,
       DKL_DP_MODE_2,
       DKL_CLKTOP2_HSCC_2,
       DKL_CLKTOP2_CCC1_2,
@@ -942,6 +956,7 @@ is
       DKL_TX_DPCNTL2_2,
       DKL_CMN_UC_DW_27_2,
       DKL_TX_PMD_LANE_SUS_2,
+      DKL_PCS_DW5_3,
       DKL_DP_MODE_3,
       DKL_CLKTOP2_HSCC_3,
       DKL_CLKTOP2_CCC1_3,
@@ -956,6 +971,7 @@ is
       DKL_TX_DPCNTL2_3,
       DKL_CMN_UC_DW_27_3,
       DKL_TX_PMD_LANE_SUS_3,
+      DKL_PCS_DW5_4,
       DKL_DP_MODE_4,
       DKL_CLKTOP2_HSCC_4,
       DKL_CLKTOP2_CCC1_4,
@@ -1034,6 +1050,7 @@ is
       VSYNC_A               => 16#06_0014# / Register_Width,
       PIPEASRC              => 16#06_001c# / Register_Width,
       PIPEACONF             => 16#07_0008# / Register_Width,
+      PIPEA_ARB_CTL         => 16#07_0028# / Register_Width,
       PIPEAMISC             => 16#07_0030# / Register_Width,
       PIPEA_CHICKEN         => 16#07_0038# / Register_Width,
       TRANS_HTOTAL_A        => 16#0e_0000# / Register_Width,
@@ -1150,6 +1167,7 @@ is
       VSYNC_B               => 16#06_1014# / Register_Width,
       PIPEBSRC              => 16#06_101c# / Register_Width,
       PIPEBCONF             => 16#07_1008# / Register_Width,
+      PIPEB_ARB_CTL         => 16#07_1028# / Register_Width,
       PIPEBMISC             => 16#07_1030# / Register_Width,
       PIPEB_CHICKEN         => 16#07_1038# / Register_Width,
       TRANS_HTOTAL_B        => 16#0e_1000# / Register_Width,
@@ -1263,6 +1281,7 @@ is
       VSYNC_C               => 16#06_2014# / Register_Width,
       PIPECSRC              => 16#06_201c# / Register_Width,
       PIPECCONF             => 16#07_2008# / Register_Width,
+      PIPEC_ARB_CTL         => 16#07_2028# / Register_Width,
       PIPECMISC             => 16#07_2030# / Register_Width,
       PIPEC_CHICKEN         => 16#07_2038# / Register_Width,
       TRANS_HTOTAL_C        => 16#0e_2000# / Register_Width,
@@ -1777,13 +1796,16 @@ is
       FBA_CFB_BASE          => 16#04_3200# / Register_Width,
       IPS_CTL               => 16#04_3408# / Register_Width,
       ARB_CTL               => 16#04_5000# / Register_Width,
-      DBUF_CTL              => 16#04_5008# / Register_Width,
-      DBUF_CTL_S2           => 16#04_4fe8# / Register_Width,
+      DBUF_CTL_S0           => 16#04_5008# / Register_Width,
+      DBUF_CTL_S1           => 16#04_4fe8# / Register_Width,
+      DBUF_CTL_S2           => 16#04_4300# / Register_Width,
+      DBUF_CTL_S3           => 16#04_4304# / Register_Width,
       NDE_RSTWRN_OPT        => 16#04_6408# / Register_Width,
       GEN8_CHICKEN_DCPR_1   => 16#04_6430# / Register_Width,
       GEN11_CHICKEN_DCPR_2  => 16#04_6434# / Register_Width,
       GEN9_CLKGATE_DIS_0    => 16#04_6530# / Register_Width,
-      GEN9_CLKGATE_DIS_3    => 16#04_6538# / Register_Width,
+      GEN9_CLKGATE_DIS_5    => 16#04_6540# / Register_Width,
+      GEN9_CHICKEN_DPCR_3   => 16#04_6538# / Register_Width,
       PCH_DREF_CONTROL      => 16#0c_6200# / Register_Width,
       PCH_DPLL_SEL          => 16#0c_7000# / Register_Width,
       GT_MAILBOX            => 16#13_8124# / Register_Width,
@@ -2159,6 +2181,9 @@ is
       MGPLL4_ENABLE            => 16#04_603c# / Register_Width,
       MGPLL6_ENABLE            => 16#04_6044# / Register_Width,
 
+      -- ADL DKL PLLs
+      PORTTC_PLL_ENABLE_4      => 16#04_6048# / Register_Width,
+
       -- TGL DKL Vswing
       DKL_TX_PMD_LANE_SUS_1    => 16#16_8d00# / Register_Width,
       DKL_TX_PMD_LANE_SUS_2    => 16#16_9d00# / Register_Width,
@@ -2183,7 +2208,22 @@ is
       DKL_TX_DPCNTL2_3         => 16#16_a2c8# / Register_Width,
       DKL_TX_DPCNTL2_4         => 16#16_b2c8# / Register_Width,
       DKL_TX_DPCNTL2_5         => 16#16_c2c8# / Register_Width,
-      DKL_TX_DPCNTL2_6         => 16#16_d2c8# / Register_Width);
+      DKL_TX_DPCNTL2_6         => 16#16_d2c8# / Register_Width,
+
+      -- ADL DKL registers
+      DKL_PCS_DW5_1            => 16#16_8014# / Register_Width,
+      DKL_PCS_DW5_2            => 16#16_9014# / Register_Width,
+      DKL_PCS_DW5_3            => 16#16_a014# / Register_Width,
+      DKL_PCS_DW5_4            => 16#16_b014# / Register_Width,
+
+      -- ADL DDI status
+      TCSS_DDI_STATUS_1        => 16#16_1500# / Register_Width,
+      TCSS_DDI_STATUS_2        => 16#16_1504# / Register_Width,
+      TCSS_DDI_STATUS_3        => 16#16_1508# / Register_Width,
+      TCSS_DDI_STATUS_4        => 16#16_150c# / Register_Width,
+
+      DISPLAY_ERR_FATAL_MASK   => 16#04_421c# / Register_Width,
+      MBUS_CTL                 => 16#04_438c# / Register_Width);
 
    subtype Registers_Index is Registers_Invalid_Index range
       Registers_Invalid_Index'Succ (Invalid_Register) ..
@@ -2239,6 +2279,9 @@ is
    DDI_BUF_CTL_USBC1    : constant Registers_Index := DDI_BUF_CTL_D;
    DDI_BUF_CTL_USBC2    : constant Registers_Index := DDI_BUF_CTL_E;
    DDI_BUF_CTL_USBC6    : constant Registers_Index := SRD_CTL;
+   PORTTC_PLL_ENABLE_1  : constant Registers_Index := MGPLL3_ENABLE;
+   PORTTC_PLL_ENABLE_2  : constant Registers_Index := WRPLL_CTL_1;
+   PORTTC_PLL_ENABLE_3  : constant Registers_Index := MGPLL6_ENABLE;
 
    ---------------------------------------------------------------------------
 

@@ -55,7 +55,9 @@ package body HW.GFX.GMA.PLLs.DKL is
    PLL_Regs : constant PLL_Regs_Array :=
       PLL_Regs_Array'
      (TCPLL1 =>
-        (Registers.MGPLL1_ENABLE,
+        ((if Config.Has_New_Type_C_PLL_Enable
+	  then Registers.PORTTC_PLL_ENABLE_1
+	  else Registers.MGPLL1_ENABLE),
          Registers.DKL_REFCLKIN_CTL_1,
          Registers.DKL_CLKTOP2_CCC1_1,
          Registers.DKL_CLKTOP2_HSCC_1,
@@ -63,9 +65,11 @@ package body HW.GFX.GMA.PLLs.DKL is
          Registers.DKL_PLL_DIV1_1,
          Registers.DKL_PLL_SSC_1,
          Registers.DKL_PLL_BIAS_1,
-         Registers.DKL_PLL_COLD_BIAS_1),
+         Registers.DKL_PLL_COLDST_BIAS_1),
       TCPLL2 =>
-        (Registers.MGPLL2_ENABLE,
+        ((if Config.Has_New_Type_C_PLL_Enable
+	  then Registers.PORTTC_PLL_ENABLE_2
+	  else Registers.MGPLL2_ENABLE),
          Registers.DKL_REFCLKIN_CTL_2,
          Registers.DKL_CLKTOP2_CCC1_2,
          Registers.DKL_CLKTOP2_HSCC_2,
@@ -73,9 +77,11 @@ package body HW.GFX.GMA.PLLs.DKL is
          Registers.DKL_PLL_DIV1_2,
          Registers.DKL_PLL_SSC_2,
          Registers.DKL_PLL_BIAS_2,
-         Registers.DKL_PLL_COLD_BIAS_2),
+         Registers.DKL_PLL_COLDST_BIAS_2),
       TCPLL3 =>
-        (Registers.MGPLL3_ENABLE,
+        ((if Config.Has_New_Type_C_PLL_Enable
+	  then Registers.PORTTC_PLL_ENABLE_3
+	  else Registers.MGPLL3_ENABLE),
          Registers.DKL_REFCLKIN_CTL_3,
          Registers.DKL_CLKTOP2_CCC1_3,
          Registers.DKL_CLKTOP2_HSCC_3,
@@ -83,9 +89,11 @@ package body HW.GFX.GMA.PLLs.DKL is
          Registers.DKL_PLL_DIV1_3,
          Registers.DKL_PLL_SSC_3,
          Registers.DKL_PLL_BIAS_3,
-         Registers.DKL_PLL_COLD_BIAS_3),
+         Registers.DKL_PLL_COLDST_BIAS_3),
       TCPLL4 =>
-        (Registers.MGPLL4_ENABLE,
+        ((if Config.Has_New_Type_C_PLL_Enable
+	  then Registers.PORTTC_PLL_ENABLE_4
+	  else Registers.MGPLL4_ENABLE),
          Registers.DKL_REFCLKIN_CTL_4,
          Registers.DKL_CLKTOP2_CCC1_4,
          Registers.DKL_CLKTOP2_HSCC_4,
@@ -93,7 +101,7 @@ package body HW.GFX.GMA.PLLs.DKL is
          Registers.DKL_PLL_DIV1_4,
          Registers.DKL_PLL_SSC_4,
          Registers.DKL_PLL_BIAS_4,
-         Registers.DKL_PLL_COLD_BIAS_4),
+         Registers.DKL_PLL_COLDST_BIAS_4),
       TCPLL5 =>
         (Registers.MGPLL5_ENABLE,
          Registers.DKL_REFCLKIN_CTL_5,
@@ -103,7 +111,7 @@ package body HW.GFX.GMA.PLLs.DKL is
          Registers.DKL_PLL_DIV1_5,
          Registers.DKL_PLL_SSC_5,
          Registers.DKL_PLL_BIAS_5,
-         Registers.DKL_PLL_COLD_BIAS_5),
+         Registers.DKL_PLL_COLDST_BIAS_5),
       TCPLL6 =>
         (Registers.MGPLL6_ENABLE,
          Registers.DKL_REFCLKIN_CTL_6,
@@ -113,7 +121,7 @@ package body HW.GFX.GMA.PLLs.DKL is
          Registers.DKL_PLL_DIV1_6,
          Registers.DKL_PLL_SSC_6,
          Registers.DKL_PLL_BIAS_6,
-         Registers.DKL_PLL_COLD_BIAS_6));
+         Registers.DKL_PLL_COLDST_BIAS_6));
 
    DKL_REFCLKIN_CTL_OD_2_MUX_MASK          : constant := 7 * 2 ** 8;
    DKL_CLKTOP2_CORECLKCTL1_A_DIVRATIO_MASK : constant := 16#ff# * 2 ** 8;

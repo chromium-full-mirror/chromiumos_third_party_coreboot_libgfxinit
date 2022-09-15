@@ -248,6 +248,8 @@ private package HW.GFX.GMA.Config is
    Has_Broadwell_CDClk           : <hswbool> := CPU_Broadwell;
    Can_Switch_CDClk              : <hswbool> := Broadwell_On;
    Has_Fractional_RawClk         : <genbool> := Cannon_Point_On;
+   Has_CDClk_PLL_Crawl           : <tglbool> := Alderlake_On;
+   Has_New_Type_C_PLL_Enable     : <tglbool> := Alderlake_On;
 
    ----------- DDI: -------------
    End_EDP_Training_Late         : <genbool> := Gen_Haswell;
@@ -286,23 +288,37 @@ private package HW.GFX.GMA.Config is
    Has_IPS_CTL_Mailbox           : <hswbool> := CPU_Broadwell;
 
    Has_Per_Pipe_SRD              : <hswbool> := Broadwell_On;
+   Has_XELPD_Power_Domains       : <tglbool> := Alderlake_On;
 
    ----------- GTT: -------------
    Has_64bit_GTT                 : <hswbool> := Broadwell_On;
 
    ----------- Type-C: ----------
    Has_Type_C_Ports              : <genbool> := Tigerlake_On;
+   Need_TC_PHY_Ownership         : <tglbool> := Alderlake_On;
+   Need_Loadgen_Select           : <tglbool> := Alderlake_On;
+   Need_DP_Alt_Switch            : <tglbool> := Alderlake_On;
+   Has_TCSS_DDI_Status           : <tglbool> := Alderlake_On;
 
    ----------- Transcoder -------
    Need_Early_Transcoder_Setup   : <genbool> := Tigerlake_On;
+   Need_Pipe_Arb_Slots           : <tglbool> := Alderlake_On;
 
    ----------- Planes -----------
    Has_Mbus_Dbox_Credits         : <genbool> := Tigerlake_On;
    Has_Wide_Watermarks           : <genbool> := Tigerlake_On;
    Has_TGL_Plane_Control         : <genbool> := Tigerlake_On;
+   Has_New_Mbus_Dbox_Credits     : <tglbool> := Alderlake_On;
 
    ----------- Rawclk -----------
    Need_Rawclk_Numerator         : <genbool> := Tigerlake_On;
+
+   ----------- Combo Phy --------
+   Has_TGL_Buffer_Translations   : <tglbool> := CPU_Tigerlake;
+
+   ----------- Pipe -------------
+   Has_Pipe_Chicken_Bits         : <genbool> := Tigerlake_On;
+   Need_Underrun_Rec_Disable     : <tglbool> := Alderlake_On;
 
    ----------------------------------------------------------------------------
 
